@@ -37,6 +37,7 @@
       "last 1 safari version"
     ]
   },
+  "homepage": "https://nonownonow.github.io/simple-todo-list/",
   "devDependencies": {
     "gh-pages": "^6.1.1"
   }
