@@ -1,24 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import { useRef, useState } from "react";
 
 function App() {
+  const [list, setList] = useState([]);
+  const [item, setItem] = useState("");
+  const idRef = useRef(0);
+  function changeHandler(e) {
+    setItem(e.target.value);
+  }
+  function clickHandler(e) {
+    setList([...list, { id: idRef.current + 1, value: item }]);
+    setItem("");
+    idRef.current++;
+  }
+  function deleteHandler(id) {
+    setList(list.filter((item) => item.id !== id));
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <article>
+      <h1>TO-DO LIST</h1>
+      <input type="text" value={item} onChange={changeHandler}></input>
+      <button onClick={clickHandler}>+</button>
+      <ul>
+        {list.map((item) => (
+          <li key={item.id}>
+            <span>{item.value}</span>
+            <button onClick={() => deleteHandler(item.id)}>삭제</button>
+          </li>
+        ))}
+      </ul>
+    </article>
   );
 }
 
